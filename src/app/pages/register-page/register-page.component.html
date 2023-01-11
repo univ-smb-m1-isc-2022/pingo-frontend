@@ -1,0 +1,16 @@
+<h1 i18n>Register</h1>
+<form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+  <label for="name">Username :</label>
+  <input id="name" type="text" formControlName="name" />
+
+  <label for="email">Email :</label>
+  <input id="email" type="text" formControlName="email" />
+
+  <label for="password">Password :</label>
+  <input id="password" type="password" formControlName="password" />
+
+  <label for="password_confirmation">Password Confirmation :</label>
+  <input id="password_confirmation" type="password" formControlName="password_confirmation" />
+
+  <button type="submit" [disabled]="!registerForm.valid" i18n>Register</button>
+</form>
