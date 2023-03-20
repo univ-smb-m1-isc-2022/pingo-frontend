@@ -3,7 +3,7 @@ name: Pingo frontend
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   web-deploy:
