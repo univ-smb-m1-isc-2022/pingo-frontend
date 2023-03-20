@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home-page',
@@ -13,6 +14,6 @@ export class HomePageComponent implements OnInit {
 	constructor(private http: HttpClient) {}
 
 	ngOnInit(): void {
-		this.http.get("http://0.0.0.0/api/test", { observe: 'body', responseType: 'json'}).subscribe((data) => this.returnValue = JSON.stringify(data));
+		this.http.get(`//${environment.apiDomain}/hello`, { observe: 'body' }).subscribe((data) => this.returnValue = data.toString());
 	}
 }

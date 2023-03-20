@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/AuthGuard/auth.guard';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 
@@ -22,6 +23,7 @@ const routes: Routes = [
 	{
 		path: "app",
 		canActivateChild: [AuthGuard],
+		component: DashboardLayoutComponent,
 		children: [
 			{
 				path: "",

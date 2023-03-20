@@ -10,6 +10,8 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { httpInterceptorProviders } from './http-interceptors';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { ToastComponent } from './components/toast/toast.component';
+import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
     LoginPageComponent,
     RegisterPageComponent,
     DashboardPageComponent,
+    ToastComponent,
+    DashboardLayoutComponent,
   ],
   imports: [
     BrowserModule,

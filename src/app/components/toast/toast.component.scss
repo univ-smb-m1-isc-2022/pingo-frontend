@@ -1,0 +1,37 @@
+.toast-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 5rem;
+    width: 75%;
+
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+
+    background: #64faff;
+    border-radius: 20px;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    justify-content: space-between;
+
+    &-shown {
+        margin-bottom: -2rem;
+    }
+
+}
+
+.icon {
+    height: 24px;
+    width: 24px;
+
+    flex: initial;
+}
