@@ -1,7 +1,4 @@
 <div id="container">
-    <header>
-        <h1 id="logo">Pingo</h1>
-    </header>
     <div id="hero-container">
         <div class="hero">
             <div class="hero-info">
@@ -12,6 +9,11 @@
                 <button class="btn">Log in</button>
             </div>
         </div>
+    </div>
+    <div>
+        <input type="text" [(ngModel)]="from"/>
+        <input type="text" [(ngModel)]="text"/>
+        <button (click)="sendMessage()">Send</button>
     </div>
     
 </div>

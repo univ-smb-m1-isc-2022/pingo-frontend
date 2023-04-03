@@ -6,19 +6,26 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { GuestLayoutComponent } from './layouts/guest-layout/guest-layout.component';
 
 const routes: Routes = [
 	{
 		path: "",
-		component: HomePageComponent
-	},
-	{
-		path: "login",
-		component: LoginPageComponent
-	},
-	{
-		path: "register",
-		component: RegisterPageComponent
+		component: GuestLayoutComponent,
+		children: [
+			{
+				path: "",
+				component: HomePageComponent
+			},
+			{
+				path: "login",
+				component: LoginPageComponent
+			},
+			{
+				path: "register",
+				component: RegisterPageComponent
+			}
+		]
 	},
 	{
 		path: "app",

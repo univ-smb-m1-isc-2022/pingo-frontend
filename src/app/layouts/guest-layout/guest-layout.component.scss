@@ -1,0 +1,8 @@
+@use 'colors';
+
+header {
+    background-color: colors.$h-bg-color;
+    color: colors.$important-text;
+    padding-left: 2rem;
+    box-shadow: 0px 2px 3px;
+}
