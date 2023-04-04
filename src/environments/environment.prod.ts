@@ -1,4 +1,5 @@
 export const environment = {
 	production: true,
-	apiDomain: 'pingoapi.oups.net'
+	apiDomain: 'pingoapi.oups.net',
+	httpIsSecure: 'https'
   };
