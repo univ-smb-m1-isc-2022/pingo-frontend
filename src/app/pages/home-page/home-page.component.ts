@@ -14,6 +14,7 @@ import * as Stomp from 'stompjs';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
+
 	returnValue!: string;
 	from: string = "";
 	text: string = "";
@@ -25,12 +26,11 @@ export class HomePageComponent implements OnInit {
 	ngOnInit(): void {
 		this.http.get(`//${environment.apiDomain}/hello`, { observe: 'body' }).subscribe((data) => this.returnValue = data.toString());
 
-		var socket = new SockJS(`http://${environment.apiDomain}/chat`);
+		var socket = new SockJS(`${environment.httpIsSecure}://${environment.apiDomain}/chat`);
 		this.stompClient = Stomp.over(socket);
 		this.stompClient.connect({}, (frame) => {
 			console.log("connected !");
 			this.stompClient.subscribe(`/topic/messages`, (messageOutput) => {
-				console.log("heyyy");
 				console.log("MESSAGE : ", JSON.parse(messageOutput.body));
 			})
 		}, (error) => {
