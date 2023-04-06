@@ -33,8 +33,8 @@ export class PlayGridComponent {
       this.authUser = this.route.snapshot.data['authUser'].body;
 
     this.gridWsService.createWsConnection(this.grid.urlCode,
-      this.authUser ? this.authUser.username : 'Anonymous',
-      (wsMessage: any) => {this.alertService.sendAlert({type: 'info', message: `Wow ! ${wsMessage.from} got a bingo !`});}
+      this.authUser ? this.authUser.username : `Anonymous${this.getRandomInt()}`,
+      (wsMessage: any) => { this.alertService.sendAlert({ type: 'info', message: `Wow ! ${wsMessage.from} got a bingo !` }); }
     );
 
     this.loadSyncedGridCompletion();
@@ -45,13 +45,10 @@ export class PlayGridComponent {
     var remainingGridData: Array<number> = [...Array(this.grid.gridData.length).keys()];
 
     for (var i = 0; i < this.grid.dim * this.grid.dim; i++) {
-      const crypto = window.crypto;
-      var array = new Uint32Array(1);
-      crypto.getRandomValues(array);
-      console.log(array[0]);
 
 
-      const index = Math.floor(array[0] % remainingGridData.length);
+
+      const index = Math.floor(this.getRandomInt() % remainingGridData.length);
       this.gridCompletion.set(remainingGridData[index], false);
       remainingGridData.splice(index, 1);
     }
@@ -66,7 +63,7 @@ export class PlayGridComponent {
 
     if (this.checkBingo()) {
       this.gridWsService.sendBingoNotification(this.grid.urlCode);
-      this.alertService.sendAlert({ type: 'success', message: "Congratulations ! You got a Bingo !"});
+      this.alertService.sendAlert({ type: 'success', message: "Congratulations ! You got a Bingo !" });
     }
 
 
@@ -212,6 +209,13 @@ export class PlayGridComponent {
       }
     }
     return value;
+  }
+
+  getRandomInt() {
+    const crypto = window.crypto;
+    var array = new Uint32Array(1);
+    crypto.getRandomValues(array);
+    return array[0];
   }
 
 
