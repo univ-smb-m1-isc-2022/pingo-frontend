@@ -14,13 +14,13 @@
         </div>
 
         <div formArrayName="gridData">
-          <h2 class="text-3xl font-bold">Options</h2>
+          <h2 class="text-3xl font-bold my-2">Options</h2>
           <div class="flex flex-row justify-between">
             <button type="button" class="btn btn-success" (click)="addBox()">Add another potential box</button>
             <button type="button" class="btn btn-secondary" [disabled]="gridData.length <= 9" (click)="removeBox()">Remove last
               box</button>
           </div>
-          <div class="grid grid-cols-2">
+          <div class="grid grid-cols-2 gap-3">
             <div *ngFor="let box of gridData.controls; let i=index">
               <div class="form-control">
                 <label class="label" for="box-{{i}}"></label>
@@ -30,7 +30,7 @@
           </div>
 
         </div>
-        <button type="submit" [disabled]="gridForm.invalid" class="btn btn-primary">Submit my grid !</button>
+        <button type="submit" [disabled]="gridForm.invalid" class="btn btn-primary mt-2">Submit my grid !</button>
       </form>
 
     </div>
