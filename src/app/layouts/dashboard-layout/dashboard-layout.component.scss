@@ -1,0 +1,17 @@
+whole-height {
+    height: 100vh;
+    display: inline-block;
+}
+
+body {
+    justify-content: space-between;
+}
+
+main {
+    flex-grow: 2;
+    justify-content: space-around;
+}
+
+whole-height {
+    min-height: 100%;
+}

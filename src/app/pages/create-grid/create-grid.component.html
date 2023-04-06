@@ -1,0 +1,38 @@
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-content text-center">
+    <div class="max-w-md">
+      <h1 class="text-5xl font-bold">Create Your Bingo Grid !</h1>
+      <form [formGroup]="gridForm" (ngSubmit)="onGridSubmit()">
+        <div class="form-control">
+          <label class="label" for="gridName">Name of your new grid :</label>
+          <input id="gridName" type="text" formControlName="name" class="input input-bordered" />
+        </div>
+
+        <div class="form-control">
+          <label class="label" for="gridNdimame">Grid dimension :</label>
+          <input id="dim" type="number" min="3" formControlName="dim" class="input input-bordered" />
+        </div>
+
+        <div formArrayName="gridData">
+          <h2 class="text-3xl font-bold">Options</h2>
+          <div class="flex flex-row justify-between">
+            <button type="button" class="btn btn-success" (click)="addBox()">Add another potential box</button>
+            <button type="button" class="btn btn-secondary" [disabled]="gridData.length <= 9" (click)="removeBox()">Remove last
+              box</button>
+          </div>
+          <div class="grid grid-cols-2">
+            <div *ngFor="let box of gridData.controls; let i=index">
+              <div class="form-control">
+                <label class="label" for="box-{{i}}"></label>
+                <input id="box-{{i}}" type="text" [formControlName]="i" class="input input-bordered" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <button type="submit" [disabled]="gridForm.invalid" class="btn btn-primary">Submit my grid !</button>
+      </form>
+
+    </div>
+  </div>
+</div>

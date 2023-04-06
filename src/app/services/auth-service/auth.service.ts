@@ -1,43 +1,61 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { concat, last } from 'rxjs';
+import { Observable, catchError, concat, last, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { GridSaveService } from '../grid-save/grid-save.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  authenticatedUser: any
+
+  constructor(private http: HttpClient, private gridSaveService: GridSaveService) { }
 
   login(formValue: any) {
-    const csrfRequest = this.http.head(
-      `//${environment.apiDomain}/sanctum/csrf-cookie`
-    );
-
-    const loginRequest = this.http.post(
-      `//${environment.apiDomain}/login`,
+    return this.http.post(
+      `//${environment.apiDomain}/auth/authentication`,
       formValue,
-      { observe: 'response' }
+      { observe: 'response', withCredentials: true, responseType: 'text'}
     );
-
-    const mergedRequests = concat(csrfRequest, loginRequest);
-
-    return mergedRequests.pipe(last());
   }
 
   register(formValue: any) {
-    const csrfRequest = this.http.head(
-      `//${environment.apiDomain}/sanctum/csrf-cookie`
-    );
-
-    const registerRequest = this.http.post(
-      `//${environment.apiDomain}/register`,
+    return this.http.post(
+      `//${environment.apiDomain}/auth/register`,
       formValue,
-      { observe: 'response' }
+      { observe: 'response', withCredentials: true, responseType: 'text' }
     );
+  }
 
-    const mergedRequests = concat(csrfRequest, registerRequest);
+  disconnect() {
+    return this.http.post(
+      `//${environment.apiDomain}/auth/disconnect`,
+      {},
+      { observe: 'response', withCredentials: true, responseType: 'text' }
+    ).pipe(map(response => {
+        this.authenticatedUser = null;
+        this.gridSaveService.deleteLocalSaves();
+        return response;
+    }));
+  }
 
-    return mergedRequests.pipe(last());
+  getAuthenticatedUser(): Observable<any> {
+    if (this.authenticatedUser) {
+      return of(this.authenticatedUser);
+    } else {
+      return this.http.get(`//${environment.apiDomain}/auth/user`,
+        { observe: 'response', withCredentials: true }
+      ).pipe(
+        map(response => {
+          this.authenticatedUser = response;
+          return this.authenticatedUser;
+        }),
+        catchError(error => {
+          console.error(error);
+          return of(null);
+        })
+      );
+    }
   }
 }

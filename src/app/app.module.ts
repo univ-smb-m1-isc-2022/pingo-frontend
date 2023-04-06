@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -13,6 +13,9 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { ToastComponent } from './components/toast/toast.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 import { GuestLayoutComponent } from './layouts/guest-layout/guest-layout.component';
+import { CreateGridComponent } from './pages/create-grid/create-grid.component';
+import { PlayGridComponent } from './pages/play-grid/play-grid.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,17 +26,20 @@ import { GuestLayoutComponent } from './layouts/guest-layout/guest-layout.compon
     DashboardPageComponent,
     ToastComponent,
     DashboardLayoutComponent,
-    GuestLayoutComponent
+    GuestLayoutComponent,
+    CreateGridComponent,
+    PlayGridComponent
   ],
   imports: [
     BrowserModule,
-	HttpClientModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
-	ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
-	httpInterceptorProviders
+    httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })

@@ -1,73 +1,16 @@
-@use 'colors';
-
-#container {
-    min-height: 80%;
-    height: auto;
-
-    display: flex;
-    flex-direction: column;
-
-
-    align-items: stretch;
+h1 {
+    font-weight: bold;
+    font-size: 3rem;
 }
 
-#hero-container {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    align-items: center;
-}
-
-.hero {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
-    border-radius: 5px;
-
-    background-color: colors.$card-bg-color;
-    color: colors.$card-text-color;
-
-    padding: 0rem 3rem;
-    max-width: 50%;
-    height: 50%;
-    min-height: 50vh;
-    width: 75vh;
-
-    *{
-        flex-grow: 1;
-    }
-}
-
-.hero-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    row-gap: 3rem;
-    align-items: center;
-
-    * {
-        max-width: 5rem;
-    }
+.card-body {
+    min-height: 20rem;
 }
 
 .btn {
-    background-color: colors.$highlight-color;
-    border: 0px;
-    border-radius: 3px;
-    padding: 8px 12px;
-    box-shadow: 0px 2px 3px;
-    min-width: 50%;
-
-    &:hover {
-        cursor: pointer;
-    }
-
-    &:active {
-        box-shadow: none;
-    }
+    min-width: 10rem;
 }
 
+.text-area {
+    min-width: 10rem;
+}
