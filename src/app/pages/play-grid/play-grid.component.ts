@@ -41,7 +41,12 @@ export class PlayGridComponent {
     var remainingGridData: Array<number> = [...Array(this.grid.gridData.length).keys()];
 
     for (var i = 0; i < this.grid.dim * this.grid.dim; i++) {
-      const index = Math.floor(Math.random() * remainingGridData.length);
+      const crypto = window.crypto;
+      var array = new Uint32Array(1);
+      crypto.getRandomValues(array);
+
+
+      const index = Math.floor(array[0] * remainingGridData.length);
       this.gridCompletion.set(remainingGridData[index], false);
       remainingGridData.splice(index, 1);
     }

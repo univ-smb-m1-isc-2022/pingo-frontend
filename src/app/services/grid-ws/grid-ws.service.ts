@@ -21,7 +21,7 @@ export class GridWSService {
   createWsConnection(room_url: string, username: string ,onReceive: (messageOutput: any) => any) {
     this.username = username;
 
-    if(this.stompClient || this.stompClient) {
+    if(this.stompClient) {
       this.socket.close();
     }
 
