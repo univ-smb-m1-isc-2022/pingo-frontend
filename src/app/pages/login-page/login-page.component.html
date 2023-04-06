@@ -1,11 +1,27 @@
-<h1 i18n>Login</h1>
-<form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
-  <label for="email">Email :</label>
-  <input id="email" type="text" formControlName="email" />
-
-  <label for="password">Password :</label>
-  <input id="password" type="password" formControlName="password" />
-
-  <button type="submit" [disabled]="!loginForm.valid" i18n>Login</button>
-</form>
-<p>{{response}}</p>
+<div class="hero min-h-full bg-base-200">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <div class="text-area text-center lg:text-left">
+      <h1 class="text-5xl font-bold">Login now!</h1>
+    </div>
+    <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <form class="card-body" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+        <div class="form-control">
+          <label class="label" for="username">
+            <span class="label-text">Username</span>
+          </label>
+          <input id="username" type="text" formControlName="username" class="input input-bordered" />
+        </div>
+        <div class="form-control">
+          <label for="password" class="label">
+            <span class="label-text">Password</span>
+          </label>
+          <input id="password" type="password" formControlName="password" class="input input-bordered" />
+        </div>
+        <div class="form-control mt-6">
+          <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{{this.response}}

@@ -1,19 +1,16 @@
-<div id="container">
-    <div id="hero-container">
-        <div class="hero">
-            <div class="hero-info">
-                <h1>Pingo</h1>
-            </div>
-            <div class="hero-form">
-                <button class="btn">Sign in</button>
-                <button class="btn">Log in</button>
-            </div>
-        </div>
+<div class="hero min-h-full my-auto">
+  <div class="hero-content flex-col lg:flex-row">
+    <div class="text-area text-center lg:text-left">
+      <h1>Pingo</h1>
+      <p class="py-6">The only bingo experience you need</p>
     </div>
-    <div>
-        <input type="text" [(ngModel)]="from"/>
-        <input type="text" [(ngModel)]="text"/>
-        <button (click)="sendMessage()">Send</button>
+    <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <div class="card-body flex flex-col justify-center items-center">
+
+        <a routerLink="/login"><button class="btn">Login</button></a>
+        <a routerLink="/register"><button class="btn">Register</button></a>
+
+      </div>
     </div>
-    
+  </div>
 </div>

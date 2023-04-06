@@ -7,6 +7,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { passwordConfirmationValidator } from 'src/app/shared/password-confirmation.directive';
 
@@ -18,7 +19,7 @@ import { passwordConfirmationValidator } from 'src/app/shared/password-confirmat
 export class RegisterPageComponent {
   registerForm = this.fb.group(
     {
-      name: ['', [Validators.required, Validators.minLength(5)]],
+      username: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(5)]],
       password_confirmation: [
@@ -31,15 +32,15 @@ export class RegisterPageComponent {
 
   response!: string;
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {}
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {}
 
   onRegisterSubmit(): void {
     this.authService.register(this.registerForm.getRawValue()).subscribe({
 		error: (error: HttpErrorResponse) => {
 			this.response = JSON.stringify(error);
 		},
-		next: (response) => {
-			this.response = JSON.stringify(response);
+		next: () => {
+      this.router.navigateByUrl('/dashboard');
 		}
 	});
   }
