@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert-service/alert.service';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { passwordConfirmationValidator } from 'src/app/shared/password-confirmation.directive';
 
@@ -32,12 +33,12 @@ export class RegisterPageComponent {
 
   response!: string;
 
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {}
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, private alertService: AlertService) {}
 
   onRegisterSubmit(): void {
     this.authService.register(this.registerForm.getRawValue()).subscribe({
 		error: (error: HttpErrorResponse) => {
-			this.response = JSON.stringify(error);
+			this.alertService.sendAlert({ type: 'error', message: error.error });
 		},
 		next: () => {
       this.router.navigateByUrl('/dashboard');

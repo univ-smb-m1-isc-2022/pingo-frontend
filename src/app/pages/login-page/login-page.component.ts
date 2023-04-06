@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert-service/alert.service';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 
 @Component({
@@ -15,9 +16,7 @@ export class LoginPageComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(5)]],
   });
 
-  response!: string;
-
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) { }
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, private alertService: AlertService) { }
 
   ngOnInit(): void { }
 
@@ -30,7 +29,7 @@ export class LoginPageComponent implements OnInit {
       .login(this.loginForm.getRawValue())
       .subscribe({
         error: (error: HttpErrorResponse) => {
-          this.response = JSON.stringify(error);
+          this.alertService.sendAlert({ type: "error", message: error.error });
         },
         next: () => {
           this.router.navigateByUrl('/dashboard');

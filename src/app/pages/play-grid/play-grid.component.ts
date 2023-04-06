@@ -1,5 +1,5 @@
 import { KeyValue } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert-service/alert.service';
 import { GridSaveService } from 'src/app/services/grid-save/grid-save.service';
@@ -15,6 +15,7 @@ export class PlayGridComponent {
   alreadyExistingSaveInServer?: boolean;
   grid: any;
   gridCompletion: Map<number, boolean> = new Map();
+  gridColumns: string = 'repeat(3, minmax(0, 1fr))';
 
   // Preserve original property order
   originalOrder = (a: KeyValue<number, boolean>, b: KeyValue<number, boolean>): number => {
@@ -25,6 +26,8 @@ export class PlayGridComponent {
 
   ngOnInit() {
     this.grid = this.route.snapshot.data['grid'].body;
+
+    this.gridColumns = `repeat(${this.grid.dim}, minmax(0, 1fr))`;
 
     if (this.route.snapshot.data['authUser'])
       this.authUser = this.route.snapshot.data['authUser'].body;
@@ -38,15 +41,17 @@ export class PlayGridComponent {
   }
 
   generateFreshGridCompletion() {
+    console.log("generation");
     var remainingGridData: Array<number> = [...Array(this.grid.gridData.length).keys()];
 
     for (var i = 0; i < this.grid.dim * this.grid.dim; i++) {
       const crypto = window.crypto;
       var array = new Uint32Array(1);
       crypto.getRandomValues(array);
+      console.log(array[0]);
 
 
-      const index = Math.floor(array[0] * remainingGridData.length);
+      const index = Math.floor(array[0] % remainingGridData.length);
       this.gridCompletion.set(remainingGridData[index], false);
       remainingGridData.splice(index, 1);
     }
@@ -159,7 +164,7 @@ export class PlayGridComponent {
     if (this.authUser) {
       this.gridSaveService.getGridSave(this.authUser.id, this.grid.urlCode).subscribe({
         error: () => this.loadLocalGridCompletion(),
-        next: (response) => {
+        next: (response: { body: any; }) => {
           this.gridCompletion = JSON.parse((response.body as any).gridCompletion, this.reviver);
           this.alreadyExistingSaveInServer = true;
           this.saveGridCompletion();
@@ -171,6 +176,7 @@ export class PlayGridComponent {
   }
 
   loadLocalGridCompletion() {
+    console.log("local load");
     const gridSavesString = localStorage.getItem("gridSaves");
     if (!gridSavesString) {
       console.log("no existing saves");

@@ -1,12 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-
-import * as SockJS from 'sockjs-client';
-
-import * as Stomp from 'stompjs';
-import { AlertService } from 'src/app/services/alert-service/alert.service';
+import { Component} from '@angular/core';
 
 
 @Component({
