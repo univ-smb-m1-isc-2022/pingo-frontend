@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert-service/alert.service';
 import { GridService } from 'src/app/services/grid-service/grid.service';
 import { dimVerificationValidator } from 'src/app/shared/dim-verification.directive';
+import { oddNumberValidator } from 'src/app/shared/odd-numbered.directive';
 
 
 
@@ -14,7 +16,7 @@ import { dimVerificationValidator } from 'src/app/shared/dim-verification.direct
 export class CreateGridComponent {
   gridForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(5)]],
-    dim: [3, [Validators.required, Validators.min(3)]],
+    dim: [3, [Validators.required, Validators.min(3), oddNumberValidator]],
     gridData: this.fb.array([
       this.fb.control('', Validators.required),
       this.fb.control('', Validators.required),
@@ -28,7 +30,7 @@ export class CreateGridComponent {
     ], [Validators.required])
   }, { validators: dimVerificationValidator});
 
-  constructor(private fb: FormBuilder, private gridService: GridService, private router: Router) { }
+  constructor(private fb: FormBuilder, private gridService: GridService, private router: Router, private alertService: AlertService) { }
 
   onGridSubmit() {
 
@@ -41,10 +43,10 @@ export class CreateGridComponent {
     this.gridService
       .createGrid(this.gridForm.getRawValue())
       .subscribe({
-        error: (error) => {
-
+        error: (error: any) => {
+          this.alertService.sendAlert({ type: "error", message: error.error });
         },
-        next: (response) => {
+        next: (response: { body: any; }) => {
           console.log(response.body);
           this.router.navigateByUrl(`/play/${(response.body! as any).urlCode}`)
 
